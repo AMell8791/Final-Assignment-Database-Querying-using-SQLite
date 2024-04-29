@@ -1,0 +1,212 @@
+# Problem 1. Find the total number of crimes recorded in the CRIME table.
+
+import pandas as pd
+
+# URL of the Chicago Crime Data dataset
+crime_data_url = "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoCrimeData.csv?utm_medium=Exinfluencer&utm_source=Exinfluencer&utm_content=000026UJ&utm_term=10006555&utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2021-01-01"
+
+# Load the Chicago Crime Data dataset into a pandas DataFrame
+crime_data = pd.read_csv(crime_data_url)
+
+# Get the total number of crimes recorded
+total_crimes = len(crime_data)
+
+# Print the total number of crimes
+print("Total number of crimes recorded in the CRIME table:", total_crimes)
+
+Total number of crimes recorded in the CRIME table: 533
+
+# Problem 2. List community area names and numbers with per capita income less than 11000.
+# Filter the census_data DataFrame to include only rows where per capita income is less than 11000
+low_income_areas = census_data[census_data['PER_CAPITA_INCOME'] < 11000]
+
+# Select the community area number and name columns
+result = low_income_areas[['COMMUNITY_AREA_NUMBER', 'COMMUNITY_AREA_NAME']]
+
+# Display the result
+print(result)
+
+    COMMUNITY_AREA_NUMBER COMMUNITY_AREA_NAME
+25                   26.0  West Garfield Park
+29                   30.0      South Lawndale
+36                   37.0         Fuller Park
+53                   54.0           Riverdale
+
+# Problem 3 List all case numbers for crimes involving minors?(children are not considered minors for the purposes of crime analysis
+import pandas as pd
+
+# Load the Chicago Crime Data CSV file
+crime_data_url = "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoCrimeData.csv?utm_medium=Exinfluencer&utm_source=Exinfluencer&utm_content=000026UJ&utm_term=10006555&utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2021-01-01"
+crime_data = pd.read_csv(crime_data_url)
+
+# Filter the data to include only cases involving minors based on crime description
+minors_crime_data = crime_data[crime_data['DESCRIPTION'].str.contains('JUVENILE|YOUTH|UNDERAGE', case=False, na=False)]
+
+# List the case numbers for these filtered cases
+minors_case_numbers = minors_crime_data['CASE_NUMBER'].tolist()
+
+# Print the list of case numbers
+for case_number in minors_case_numbers:
+    print(case_number)
+
+#Problem 4 List all kidnapping crimes involving a child?
+
+import pandas as pd
+
+# Load the Chicago Crime Data CSV file
+crime_data_url = "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoCrimeData.csv?utm_medium=Exinfluencer&utm_source=Exinfluencer&utm_content=000026UJ&utm_term=10006555&utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2021-01-01"
+crime_data = pd.read_csv(crime_data_url)
+
+# Filter the data to include only kidnapping crimes involving a child
+kidnapping_crimes = crime_data[crime_data['PRIMARY_TYPE'].str.contains('KIDNAPPING', case=False, na=False)]
+kidnapping_child_crimes = kidnapping_crimes[kidnapping_crimes['DESCRIPTION'].str.contains('CHILD', case=False, na=False)]
+
+# List the case numbers for these filtered cases
+kidnapping_child_case_numbers = kidnapping_child_crimes['CASE_NUMBER'].tolist()
+
+# Print the list of case numbers
+for case_number in kidnapping_child_case_numbers:
+   print('Case number is:', case_number)
+
+Case number is: HN144152
+
+# Problem 5 List the kind of crimes that were recorded at schools. (No repetitions)
+
+import pandas as pd
+
+# Load the Chicago Crime Data CSV file
+crime_data_url = "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoCrimeData.csv?utm_medium=Exinfluencer&utm_source=Exinfluencer&utm_content=000026UJ&utm_term=10006555&utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2021-01-01"
+crime_data = pd.read_csv(crime_data_url)
+
+# Filter the data to include only crimes recorded at schools
+school_crimes = crime_data[crime_data['LOCATION_DESCRIPTION'].str.contains('SCHOOL', case=False, na=False)]
+
+# Extract unique types of crimes recorded at schools
+school_crime_types = school_crimes['PRIMARY_TYPE'].unique()
+
+# Print the list of unique crime types
+for crime_type in school_crime_types:
+      print('Crime type:', crime_type)
+
+Crime type: BATTERY
+Crime type: CRIMINAL DAMAGE
+Crime type: NARCOTICS
+Crime type: ASSAULT
+Crime type: CRIMINAL TRESPASS
+Crime type: PUBLIC PEACE VIOLATION
+
+# Problem 6 List the type of schools along with the average safety score for each type.
+
+import pandas as pd
+
+# Load the Chicago Public Schools CSV file
+schools_data_url = "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoPublicSchools.csv?utm_medium=Exinfluencer&utm_source=Exinfluencer&utm_content=000026UJ&utm_term=10006555&utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2021-01-01"
+schools_data = pd.read_csv(schools_data_url)
+
+# Group the schools data by the type of school and calculate the average safety score for each group
+average_safety_scores = schools_data.groupby('Elementary, Middle, or High School')['SAFETY_SCORE'].mean()
+
+# Print the average safety score for each type of school
+print('Type of school and Score: ')
+print(average_safety_scores)
+
+Type of school and Score: 
+Elementary, Middle, or High School
+ES    49.520384
+HS    49.623529
+MS    48.000000
+
+# Problem 7 List 5 community areas with highest % of households below poverty line
+
+import pandas as pd
+
+# Load the Chicago Census Data CSV file
+
+census_data_url = "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoCensusData.csv?utm_medium=Exinfluencer&utm_source=Exinfluencer&utm_content=000026UJ&utm_term=10006555&utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2021-01-01"
+
+census_data = pd.read_csv(census_data_url)
+
+# Sort the data by the percentage of households below the poverty line
+
+sorted_census_data = census_data.sort_values(by='PERCENT_HOUSEHOLDS_BELOW_POVERTY', ascending=False)
+
+# List the top 5 community areas with the highest percentage of households below the poverty line
+
+top_5_poverty_areas = sorted_census_data.head(5)
+
+# Print the top 5 community areas
+
+print(top_5_poverty_areas[['COMMUNITY_AREA_NAME', 'PERCENT_HOUSEHOLDS_BELOW_POVERTY']])
+
+   COMMUNITY_AREA_NAME  PERCENT_HOUSEHOLDS_BELOW_POVERTY
+53           Riverdale                              56.5
+36         Fuller Park                              51.2
+67           Englewood                              46.6
+28      North Lawndale                              43.1
+26  East Garfield Park                              42.4
+
+
+# Problem 8 Which community area is most crime prone? Display the coumminty area number only.
+
+import pandas as pd
+
+# Load the Chicago Crime Data CSV file
+crime_data_url = "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoCensusData.csv?utm_medium=Exinfluencer&utm_source=Exinfluencer&utm_content=000026UJ&utm_term=10006555&utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2021-01-01"
+crime_data = pd.read_csv(crime_data_url)
+
+# Count the number of crimes in each community area
+crime_count_by_area = crime_data['COMMUNITY_AREA_NUMBER'].value_counts()
+
+# Determine the community area with the highest number of crimes
+most_crime_prone_area = crime_count_by_area.idxmax()
+
+# Display the community area number only
+print('Community area number:', most_crime_prone_area)
+
+Community area number: 1.0
+
+#Problem 9 Use a sub-query to find the name of the community area with highest hardship index
+
+
+import pandas as pd
+
+# Load the Chicago Census Data CSV file
+census_data_url = "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoCensusData.csv"
+census_data = pd.read_csv(census_data_url)
+
+# Find the maximum hardship index value
+max_hardship_index = census_data['HARDSHIP_INDEX'].max()
+
+# Use a sub-query to find the name of the community area with the highest hardship index
+community_area_with_max_hardship = census_data[census_data['HARDSHIP_INDEX'] == max_hardship_index]['COMMUNITY_AREA_NAME'].iloc[0]
+
+# Display the name of the community area with the highest hardship index
+print('Community area with highest hardship index: ', community_area_with_max_hardship)
+
+Community area with highest hardship index:  Riverdale
+
+# Problem 10  Use a sub-query to determine the Community Area Name with most number of crimes?
+
+import pandas as pd
+
+# Load the Chicago Crime Data CSV file
+crime_data_url = "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoCrimeData.csv"
+crime_data = pd.read_csv(crime_data_url)
+
+# Find the community area with the most number of crimes
+community_area_with_most_crimes = crime_data.loc[crime_data['COMMUNITY_AREA_NUMBER'].value_counts().idxmax()]
+
+# Display the Community Area Name and Block with the most number of crimes
+print("Community Area Name: ", community_area_with_most_crimes['BLOCK'],'with most number of crime is: ', community_area_with_most_crimes['COMMUNITY_AREA_NUMBER'])
+
+Community Area Name:  044XX N ELSTON AVE with most number of crime is:  14.0
+
+
+
+
+
+
+
+
+
+
